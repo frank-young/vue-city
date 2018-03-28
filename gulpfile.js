@@ -7,7 +7,7 @@ const merge2 = require('merge2');
 
 execSync('rm -rf lib')
 execSync('mkdir -p ./lib/assets')
-execSync('cp -r ./src/assets/. ./lib/assets')
+// execSync('cp -r ./src/assets/. ./lib/assets')
 
 gulp.task('compile', function () {
     const tsCss = gulp.src('src/components/**/*.less')

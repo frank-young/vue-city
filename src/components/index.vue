@@ -28,7 +28,7 @@
                 <ul v-if="searchList.length!==0">
                     <li class="bdb" v-for="item in searchList" @click="_chooseOne(item)">{{item.cityName}}</li>
                 </ul>
-                <div v-else class="nomatch">没有匹配城市</div>
+                <div v-else class="nomatch">当前城市未开通，请重新搜索</div>
             </div>
         </div>
 		<div class="xin-widget-citys-letnav" v-if="isShow && input == '' && !simple" @touchmove="_touchLetters">
