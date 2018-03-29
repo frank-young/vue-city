@@ -170,6 +170,7 @@
 |city-data|城市列表数据|Array|数据格式参考`附录`|是|
 |local-city|当前城市</br>(根据 lat, lng 参数从接口获取)|Object|数据格式参考`附录`|是|
 |star-city|热门城市</br>|Object|数据格式参考`附录`|否|
+|empty-str|搜索为空提示</br>|String|默认：暂无数据，请重新搜索|否|
 |close|点击取消的 handle</br>可在handle中设置show=false来关闭component|Function|-|是|
 |on-choose|选中某个城市后的 handle</br>返回一个 Object 对象|Function|-|是|
 

@@ -8,7 +8,7 @@
                 </div>
                 <a href="javascript:void(0)" @click="hide">取消</a>
             </div>
-            <div class="xin-widget-citys-local bdb">当前城市：{{localCity.cityName || "无法定位当前城市"}}</div>
+            <div class="xin-widget-citys-local bdb">当前城市：{{localCity.cityName || "无法获取当前位置"}}</div>
             <div class="xin-widget-citys-list" v-if="input == ''">
                 <dl>
                     <template v-for="(item, index) in letterList">
@@ -28,7 +28,7 @@
                 <ul v-if="searchList.length!==0">
                     <li class="bdb" v-for="item in searchList" @click="_chooseOne(item)">{{item.cityName}}</li>
                 </ul>
-                <div v-else class="nomatch">当前城市未开通，请重新搜索</div>
+                <div v-else class="nomatch">{{ emptyStr }}</div>
             </div>
         </div>
 		<div class="xin-widget-citys-letnav" v-if="isShow && input == '' && !simple" @touchmove="_touchLetters">
@@ -54,10 +54,10 @@
                 default: false,
                 required: false
             },
-			simple: {
-				type: Boolean,
-				default: false
-			},
+						simple: {
+							type: Boolean,
+							default: false
+						},
             localCity: {
                 type: Object
             },
@@ -71,15 +71,19 @@
                 type: Function
             },
             initCity: {
-    			type: Function,
-                default: null
-    		},
-			/**
-			 * call back when click cancel button
-			 */
-			close: {
-				type: Function
-			}
+		    				type: Function,
+		            default: null
+		    		},
+						emptyStr: {
+								type: String,
+								default: '当前城市未开通，请重新搜索'
+						},
+						/**
+						 * call back when click cancel button
+						 */
+						close: {
+							type: Function
+						}
         },
         data: function(){
             return {
@@ -96,6 +100,7 @@
         watch: {
             cityData: function(){
                 if(this.cityData && this.cityData.length > 0){
+										console.log(this.cityData)
                     this._formatCityList(this.cityData);
                 }
             },
@@ -251,36 +256,34 @@
              */
             _formatCityList: function(arr) {
                 var letterArr = {};
+								if(this.simple){
+									for (var i = 0; i < arr.length; i++) {
+				                        letterArr[i] = [];
+				                        letterArr[i].push(arr[i]);
+				                    }
+								}else{
+									// 添加热门城市
+									if(this.starCity && this.starCity.length > 0){
+										let _starCity = this.starCity
 
-
-				if(this.simple){
-					for (var i = 0; i < arr.length; i++) {
-                        letterArr[i] = [];
-                        letterArr[i].push(arr[i]);
-                    }
-				}else{
-					// 添加热门城市
-					if(this.starCity && this.starCity.length > 0){
-						let _starCity = this.starCity
-
-						_starCity.forEach((value, index, array) => {
-							if(!('star' in letterArr)){
-								letterArr['star'] = []
-								letterArr['star'].unshift(value)
-							}else{
-								letterArr['star'].unshift(value)
-							}
-						})
-					}
-	                for (var i = 0; i < arr.length; i++) {
-	                    if (!(arr[i]['cityFirstLetter'] in letterArr)) {
-	                        letterArr[arr[i]['cityFirstLetter']] = [];
-	                        letterArr[arr[i]['cityFirstLetter']].push(arr[i]);
-	                    } else {
-	                        letterArr[arr[i]['cityFirstLetter']].push(arr[i]);
-	                    }
-	                }
-				}
+										_starCity.forEach((value, index, array) => {
+											if(!('star' in letterArr)){
+												letterArr['star'] = []
+												letterArr['star'].unshift(value)
+											}else{
+												letterArr['star'].unshift(value)
+											}
+										})
+									}
+					                for (var i = 0; i < arr.length; i++) {
+					                    if (!(arr[i]['cityFirstLetter'] in letterArr)) {
+					                        letterArr[arr[i]['cityFirstLetter']] = [];
+					                        letterArr[arr[i]['cityFirstLetter']].push(arr[i]);
+					                    } else {
+					                        letterArr[arr[i]['cityFirstLetter']].push(arr[i]);
+					                    }
+					                }
+								}
                 this.letterList = letterArr;
             },
             _chooseOne: function(obj) {
@@ -434,7 +437,7 @@
         bottom: 0;
         // width: 0.5rem;
         top: 0.48rem;
-        padding-right: 0.26rem;
+        padding-right: 0.15rem;
         z-index: 10002;
         display: -webkit-box;
         -webkit-box-align: center;

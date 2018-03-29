@@ -86,6 +86,17 @@
 
                 this.city.cityData = [
                     {
+                        cityId: 170,
+                        cityName: "宝鸡",
+                        citySpell: "BAOJI",
+                        cityFirstLetter: "B"
+                    }, {
+                        cityId: 301,
+                        cityName: "保山",
+                        citySpell: "BAOSHAN",
+                        cityFirstLetter: "B",
+                    },
+                    {
                         cityId: 290,
                         cityName: "阿坝州",
                         citySpell: "ABAZHOU",
@@ -105,16 +116,6 @@
                         cityName: "阿拉尔",
                         citySpell: "ALAER",
                         cityFirstLetter: "A",
-                    },{
-                        cityId: 170,
-                        cityName: "宝鸡",
-                        citySpell: "BAOJI",
-                        cityFirstLetter: "B"
-                    }, {
-                        cityId: 301,
-                        cityName: "保山",
-                        citySpell: "BAOSHAN",
-                        cityFirstLetter: "B",
                     },
                     {
                         cityId: 59,
